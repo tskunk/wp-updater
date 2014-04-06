@@ -18,7 +18,7 @@
 * @author Devin Price (@devinsays)
 * @see http://wptheming.com/2012/06/add-options-to-theme-customizer-default-sections/
 *
-* @since WP-Forge 5.2.0
+* @since WP-Forge 5.2.2
 */
 
 function wpforge_customizer( $wp_customize ) { // Begin WP-Forge Theme Customizer
@@ -41,7 +41,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 // Header Section
     $wp_customize->add_section('wpforge_header', array(
 		'title' => __('Header', 'wpforge'),
-		'description' => __('Modify the header portion of WP-Forge', 'wpforge'),
+		'description' => __('Modify the header portion of your theme.', 'wpforge'),
 		'priority' => 10,
 	));
 	// Add Site Logo
@@ -200,7 +200,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 //The Post Section 
     $wp_customize->add_section('wpforge_posts',array(
 		'title' => __('Posts', 'wpforge'),
-		'description' => __('Modify how posts appear in WP-Forge.', 'wpforge'),
+		'description' => __('Modify how posts appear in your theme.', 'wpforge'),
 		'priority' => 40,
     ));
 	$wp_customize->add_setting('wpforge_post_display',array(
@@ -212,7 +212,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 	));
 	$wp_customize->add_control('wpforge_post_display',array(
 		'type' => 'select',
-		'label' => __('Display Full Post or Excerpt?', 'wpforge'),
+		'label' => __('Show Full Post or Excerpt?', 'wpforge'),
 		'section' => 'wpforge_posts',
 		'choices' => array(
 			'full' => 'Full Post',
@@ -228,7 +228,23 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 	));
 	$wp_customize->add_control('wpforge_thumb_display',array(
 		'type' => 'select',
-		'label' => __('Display Post Thumbnails?', 'wpforge'),
+		'label' => __('Show Post Thumbnail on Index?', 'wpforge'),
+		'section' => 'wpforge_posts',
+		'choices' => array(
+			'no' => 'No',
+			'yes' => 'Yes',
+		),
+	));	
+	$wp_customize->add_setting('wpforge_single_thumb_display',array(
+		'default' => 'no',
+		'type' => 'theme_mod',
+		'capability' => 'manage_options',		
+		'sanitize_callback' => 'wpforge_sanitize_single_thumb_display',
+		'priority' => 3,		
+	));
+	$wp_customize->add_control('wpforge_single_thumb_display',array(
+		'type' => 'select',
+		'label' => __('Show Post Thumbnail on Single Post?', 'wpforge'),
 		'section' => 'wpforge_posts',
 		'choices' => array(
 			'no' => 'No',
@@ -239,7 +255,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 //The Footer Section
     $wp_customize->add_section('wpforge_footer',array(
 		'title' => __('Footer','wpforge'),
-		'description' => __('Modify the footer text of WP-Forge.', 'wpforge'),
+		'description' => __('Modify the footer text of your theme.', 'wpforge'),
 		'priority' => 50,
     ));
 	$wp_customize->add_setting('wpforge_footer_text',array(
@@ -257,12 +273,12 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 // Background Section
     $wp_customize->add_section('wpforge_background', array(
 		'title' => __('Background', 'wpforge'),
-		'description' => __('Modify the background of WP-Forge.', 'wpforge'),
+		'description' => __('Modify the background of your theme.', 'wpforge'),
 		'priority' => 60,
      ));
 	// Background Color	 
 	$wp_customize->add_setting('wpforge_background_color', array(
-        'default' => '#e6e6e6',
+        'default' => '',
 		'type' => 'theme_mod',
 		'transport' => 'postMessage',
 		'theme_supports' => 'wpforge-backgrounds',
@@ -291,7 +307,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 	)));
 	// Background Image Repeat			
 	$wp_customize->add_setting( 'wpforge_background_repeat', array(
-		'default' => 'repeat',
+		'default' => '',
 		'type' => 'theme_mod',
 		'transport' => 'postMessage',
 		'theme_supports' => 'wpforge-backgrounds',
@@ -310,15 +326,33 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 			'repeat-y'   => __('Tile Vertically', 'wpforge'),
 		),
 	));
+	// Background Size
+			$wp_customize->add_setting( 'wpforge_background_size', array(
+		'default' => '',
+		'type' => 'theme_mod',
+		'transport' => 'postMessage',
+		'theme_supports' => 'wpforge-backgrounds',
+		'sanitize_callback' => 'wpforge_sanitize_background_size',
+		'capability' => 'manage_options',
+		'priority' => 4,			
+	));
+	$wp_customize->add_control( 'wpforge_background_size', array(
+		'label'      => __( 'Background Size','wpforge' ),
+		'section'    => 'wpforge_background',
+		'type'       => 'select',
+		'choices'    => array(
+			'cover'  => __('Cover', 'wpforge'),
+		),
+	));
 	// Background Image Position	
 	$wp_customize->add_setting( 'wpforge_background_position', array(
-		'default'  => 'left',
+		'default'  => '',
 		'type' => 'theme_mod',
 		'transport' => 'postMessage',
 		'theme_supports' => 'wpforge-backgrounds',
 		'sanitize_callback' => 'wpforge_sanitize_background_position',
 		'capability' => 'manage_options',
-		'priority' => 4,			
+		'priority' => 5,			
 	));
 	$wp_customize->add_control( 'wpforge_background_position', array(
 		'label'      => __( 'Background Position','wpforge' ),
@@ -332,13 +366,13 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 	));
 	// Background Image Attachment	
 	$wp_customize->add_setting( 'wpforge_background_attachment', array(
-		'default'    => 'scroll',
+		'default'    => '',
 		'type' => 'theme_mod',
 		'transport' => 'postMessage',
 		'theme_supports' => 'wpforge-backgrounds',
 		'sanitize_callback' => 'wpforge_sanitize_background_attachment',
 		'capability' => 'manage_options',
-		'priority' 	 => 5,			
+		'priority' 	 => 6,			
 	));
 	$wp_customize->add_control( 'wpforge_background_attachment', array(
 		'label'      => __( 'Background Attachment','wpforge' ),
@@ -353,7 +387,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
 // Colors Section
     $wp_customize->add_section('wpforge_colors', array(
 		'title' => __('Colors', 'wpforge'),
-		'description' => __('Change some default colors of WP-Forge.', 'wpforge'),
+		'description' => __('Change some default colors of your theme.', 'wpforge'),
 		'priority' => 70,
      )); 	 	 
 	// Title Color	 
@@ -417,7 +451,7 @@ $wp_customize->get_section('static_front_page')->description = __( 'Set up a fro
  * Sanitize - Add a sanitation functions section for text inputs, check boxes, radio buttons and select lists
  * I like to keep them all in one area for organization.
  * 
- * @since WP-Forge 5.2.0
+ * @since WP-Forge 5.2.2
  */
  
  // Header Sanitation
@@ -465,7 +499,18 @@ function wpforge_sanitize_thumb_display( $input ) {
         return '';
     }
 }
-
+function wpforge_sanitize_single_thumb_display( $input ) {
+    $valid = array(
+        'yes' => 'Yes',
+		'no' => 'No',
+    );
+	
+    if ( array_key_exists( $input, $valid ) ) {
+        return $input;
+    } else {
+        return '';
+    }
+}
 // Footer Sanitation
 function wpforge_sanitize_footer_text( $input ) {
     return wp_kses_post( force_balance_tags( $input ) );
@@ -478,6 +523,17 @@ function wpforge_sanitize_background_repeat( $input ) {
         'repeat' 	=> 'Tile',
 		'repeat-x' 	=> 'Title Horizontally',
 		'repeat-y' 	=> 'Tile Vertically',
+    );
+ 
+    if ( array_key_exists( $input, $valid ) ) {
+        return $input;
+    } else {
+        return '';
+    }
+}
+function wpforge_sanitize_background_size( $input ) {
+    $valid = array(
+        'cover' => 'Cover',
     );
  
     if ( array_key_exists( $input, $valid ) ) {
@@ -516,7 +572,7 @@ function wpforge_sanitize_background_attachment( $input ) {
  * Add postMessage support for some sections of our Theme Customizer.
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  * 
- * @since WP-Forge 5.2.0
+ * @since WP-Forge 5.2.2
  */
 $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
 $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
@@ -525,6 +581,7 @@ $wp_customize->get_setting( 'wpforge_footer_text' )->transport = 'postMessage';
 $wp_customize->get_setting( 'wpforge_background_color' )->transport = 'postMessage';
 $wp_customize->get_setting( 'wpforge_background_img' )->transport = 'postMessage';
 $wp_customize->get_setting( 'wpforge_background_repeat' )->transport = 'postMessage';
+$wp_customize->get_setting( 'wpforge_background_size' )->transport = 'postMessage';
 $wp_customize->get_setting( 'wpforge_background_position' )->transport = 'postMessage';
 $wp_customize->get_setting( 'wpforge_background_attachment' )->transport = 'postMessage';
 $wp_customize->get_setting( 'wpforge_title_color' )->transport = 'postMessage';
@@ -540,7 +597,7 @@ add_action( 'customize_register', 'wpforge_customizer' ); // End WP-Forge Theme 
  * @author Anthony Wilhelm (@awshout)
  * @see https://github.com/awtheme/reactor
  *
- * @since WP-Forge 5.2.0
+ * @since WP-Forge 5.2.2
  */
 function wpforge_customizer_css() {
 	do_action('wpforge_customizer_css');
@@ -588,7 +645,7 @@ add_action('wp_head', 'wpforge_customizer_css');
 /**
  * Registers WP-Forge Theme Customizer Preview with WordPress.
  *
- * @since WP-Forge 5.2.0
+ * @since WP-Forge 5.2.2
  */
 function wpforge_customize_preview_js() {
 	wp_enqueue_script('wpforge-customizer', get_template_directory_uri() . '/inc/customizer/js/theme-customizer.js', array('jquery', 'customize-preview' ),'1.0.0', true);

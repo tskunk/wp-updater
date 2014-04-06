@@ -1,3 +1,41 @@
+<!-- Changelog as of 04/05/2014 -->
+1.) Removed the default values in the Background Section of the theme customizer.
+2.) Added "background-size" section to Background Section of the theme customizer. This will allow users to set a full width image as the background of the site without a plugin. Read more about the "background-size" attribute http://www.w3schools.com/cssref/css3_pr_background-size.asp
+3.) Removed background color from style.css and foundation.css - The default color will now be white. This will allow the user to set the initial color from within the theme customizer.
+
+<!-- Changelog as of 03/31/2014 -->
+1.) Removed content-loop.php - This file was causing post formats to display incorrectly when "Show Full Post or Excerpt?" in the theme customizer was set to excerpt. I coded it
+in an inefficient manner when I should have used the proper conditionals. Every thing is working properly.
+2.) Removed an image file from the images folder that was not supposed to be there.
+3.) Added <p></p> to the copyright text in the footer.
+
+<!-- Changelog as of 03/29/2014 -->
+1.) Removed the font size from footer elements. Thanks to Patrick for bringing this to my attention. View the thread: http://themeawesome.com/forums/topic/customizefootercopyright-text-firefox-shows-smaller-font-v-5-2-1/
+2.) Modified comments.php - Now users can easily modify the comments form. Thanks to Joseph for giving me the inspiration. View the thread: http://themeawesome.com/forums/topic/editing-comment-form/
+
+<!-- Changelog as of 03/28/2014 -->
+1.) Added Portuguese localization file compliments of Felipe Trombini (fmtrede@gmail.com)
+
+<!-- Changelog as of 03/27/2014 -->
+1.) Added fix for the footer menu, if there is no menu added to the footer, the copyright text will now properly align to the right as it should
+
+<!-- Changelog as of 03/26/2014 -->
+1.) Removed the query string from font-awesome.css
+2.) Created content-loop.php to handle an issue that was causing the excerpt to be displayed in single post view when the display option of Posts in the 
+theme customizer was set to "Excerpt".
+3.) Added the option to display or not display post thumbnails in single post view to theme customizer.
+4.) Added Open Sans font using the @fontface method
+5.) removed non printable charatcers from the comments.php file
+6.) Updated language file
+7.) Updated README.txt file - If you are new to WP-Forge, please make sure you read this, it has important information on how to configure WP-Forge.
+
+<!-- Changelog as of 03/18/2014 -->
+
+1.) Updated to latest version of Foundation, currently 5.2.2
+2.) Changed the way Open-Sans is included into the theme. This will make it easier for anyone to remove the font or add their own if necessary.
+3.) Added support for Jetpack's infinite scroll
+4.) Added the actual search form to 404.php (I think it look better this way)
+
 <!-- Changelog as of 02/09/2014 -->
 
 1.) Updated WP-Forge to the latest version of Foundation, currently v5.1.1, released on 02/06/2014.

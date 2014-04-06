@@ -4,7 +4,7 @@ Theme URI: http://wpupdater.themeawesome.com/
 Author: Thomas E. Vasquez
 Author URI: http://themeawesome.com
 Description: Based on Twenty Twelve, WP-Forge is a combination of two powerful platforms. The first being WordPress, the leading open source blogging tool and content management system. The second being Foundation (v5.2.0), the most advanced responsive front-end framework.
-Version: v5.2.0
+Version: v5.2.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: light, gray, white, one-column, two-columns, right-sidebar, custom-background, custom-header, custom-menu, editor-style, featured-images, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, translation-ready
@@ -68,7 +68,7 @@ textarea {
 	color: #636363;
 }
 .widget-title {
-	font-weight:normal!important;
+	font-weight:normal;
 	text-transform: uppercase;
 	font-size:0.875rem	
 }
@@ -263,12 +263,11 @@ img.wp-smiley,
 -------------------------------------------------------------- */
 /* Body, links, basics */
 body {
-	background-color:#e6e6e6;
 	text-rendering: optimizeLegibility;
 	-ms-word-wrap: break-word;
 	word-wrap: break-word;
 }
-.row {
+#wrapper, .row {
 	background-color:#fff;
 }
 #wrapper {
@@ -276,7 +275,6 @@ body {
 	max-width: 62.5rem;
 	margin:0 auto;
 	box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
-	background-color:#fff;
 	padding:1.5625rem 0.625rem 0;
 }
 
@@ -359,14 +357,12 @@ label > .screen-reader-text {
 footer[role="contentinfo"] {
 	border-top: 4px double #ededed;
 	clear: both;
-	font-size: 0.875rem!important;
 	line-height: 2;
 	padding: 1.5rem 0;
 }
 footer > .site-info {
 	text-align:right!important;
 	margin-bottom:0!important;
-	font-size:1rem;
 }
 footer[role="contentinfo"] a {
 	color: #686868;
@@ -849,8 +845,10 @@ a.comment-edit-link {
 	line-height: 1.714285714;
 	width: 100%;
 }
-#respond form input[type="text"] {
-	width: 46.333333333%;
+#respond form input[type="text"],
+#respond form input[type="email"],
+#respond form input[type="url"] {
+	width: 100%;
 }
 #respond form textarea.blog-textarea {
 	width: 79.666666667%;
@@ -862,6 +860,15 @@ a.comment-edit-link {
 }
 .required {
 	color: red;
+}
+p.comment-notes {
+	font-size: 0.75rem!important;
+}
+p.comment-form-author, p.comment-form-email {
+	padding-left: 0!important;
+}
+p.comment-form-email {
+	padding-right: 0!important;
 }
 
 /* =Front page template
@@ -1246,4 +1253,8 @@ span.screen-reader-text {
 		color:#fff!important;
 		font-weight:normal!important;
 	}	
+	p.comment-form-author, p.comment-form-email {
+		padding-left: 0!important;
+		padding-right: 0!important;
+	}
 }
